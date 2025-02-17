@@ -1,12 +1,17 @@
-
 pub mod point;
 pub mod vector;
 pub mod tuple;
 pub mod color;
-pub mod  canvas;
+pub mod canvas;
+pub mod projectile;
+pub mod environment;
+pub mod matrix;
 
-pub use tuple::Tuple;
-pub use point::Point;
+pub use tuple::*;
+pub use point::*;
 pub use vector::*;
-pub use color::Color;
-pub use canvas::Canvas;
+pub use color::*;
+pub use canvas::*;
+pub use projectile::*;
+pub use environment::*;
+pub use matrix::*;

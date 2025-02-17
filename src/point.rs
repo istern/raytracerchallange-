@@ -1,4 +1,4 @@
-use std::ops::{Sub};
+use std::ops::{Sub,Add};
 
 use crate::vector::Vector;
 use crate::tuple::Tuple;
@@ -50,6 +50,17 @@ impl Sub<Vector> for Point {
     }
 }
 
+
+impl Add<Vector> for Point {
+    type Output = Point;
+    fn add(self, other: Vector) -> Point  {
+        Point  {
+            x: self.x + other.x,
+            y: self.y + other.y,
+            z: self.z + other.z,
+        }
+    }
+}
 
 impl PartialEq<Point> for Tuple {
     fn eq(&self, other: &Point) -> bool {

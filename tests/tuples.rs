@@ -1,7 +1,10 @@
 
 use cucumber::{given,when,then, World};
-use  raytracer::*;
 
+use raytracer::tuple::*; // `self` includes reflect and cross
+use raytracer::vector::*;
+use raytracer::point::*;
+use raytracer::color::*;
 const EPSILON:f64=1e-5;
 
 

@@ -1,4 +1,4 @@
-use std::ops::{Sub, Mul};
+use std::ops::{Sub, Mul, Add};
 use crate::point::Point;
 use crate::tuple::Tuple;
 
@@ -26,6 +26,17 @@ impl Sub for Vector {
             x: self.x - other.x,
             y: self.y - other.y,
             z: self.z - other.z,
+        }
+    }
+}
+
+impl Add for Vector {
+    type Output = Self;
+    fn add(self, other: Self) -> Self  {
+        Self  {
+            x: self.x + other.x,
+            y: self.y + other.y,
+            z: self.z + other.z,
         }
     }
 }

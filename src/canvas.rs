@@ -1,5 +1,6 @@
 
 use crate::color::Color;
+use std::fs;
 
 #[derive(Debug, PartialEq, Default)]
 pub struct Canvas {
@@ -67,4 +68,9 @@ pub fn canvas_to_ppm(canvas: &Canvas) -> String {
     }
 
     ppm
+}
+
+pub fn write_to_disk(canvas: &Canvas, path: String)
+{
+    fs::write(path, canvas_to_ppm(canvas)).expect("Unable to write file");
 }

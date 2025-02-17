@@ -14,3 +14,7 @@ harness = false  # allows Cucumber to print output instead of libtest
 [[test]]
 name = "canvas"
 harness = false
+
+[[test]]
+name = "matrix"
+harness = false

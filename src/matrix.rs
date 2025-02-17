@@ -21,36 +21,9 @@ impl Matrix {
         }
         Self{data}
     }
-    pub fn determinant(&self) -> f64 {
-            let size = self.data.len();
-            if size == 2 {
-                return (self.data[0][0] * self.data[1][1]) - (self.data[0][1] * self.data[1][0]);
-            }
-    
-            let mut det = 0.0;
-            for j in 0..size {
-                let submatrix = self.minor(0, j); 
-                det += self.data[0][j] * submatrix.determinant() * if j % 2 == 0 { 1.0 } else { -1.0 };
-            }
-            det
-    }
 
-    fn minor(&self, row: usize, col: usize) -> Self {
-        let submatrix = self.data
-            .iter()
-            .enumerate()
-            .filter(|&(r, _)| r != row) // Remove the selected row
-            .map(|(_, row_data)| {
-                row_data.iter()
-                    .enumerate()
-                    .filter(|&(c, _)| c != col) // Remove the selected column
-                    .map(|(_, &val)| val)
-                    .collect()
-            })
-            .collect();
+  
 
-        Self { data: submatrix }
-    }
 
     pub fn size(&self) -> (usize, usize) {
         (self.data.len(), self.data.first().map_or(0, |r| r.len()))
@@ -134,6 +107,35 @@ impl Mul<&Matrix> for &Matrix {
     }
 }
 
+pub fn minor(matrix: &Matrix, row: usize, col: usize) -> f64 {
+    let sub = submatrix(matrix, row, col); // ✅ Get the submatrix
+    determinant(&sub) // ✅ Compute its determinant
+}
+
+pub fn cofactor(matrix: &Matrix, row: usize, col: usize) -> f64 {
+    let sign = if (row + col) % 2 == 0 { 1.0 } else { -1.0 }; // ✅ Compute (-1)^(row+col)
+    sign * minor(matrix, row, col) // ✅ Multiply minor by sign factor
+}
+
+
+pub fn determinant(matrix: &Matrix) -> f64 {
+    let (rows, cols) = matrix.size();
+    if rows != cols {
+        panic!("Determinant can only be computed for square matrices!");
+    }
+
+    if rows == 2 {
+        return (matrix.data[0][0] * matrix.data[1][1]) - (matrix.data[0][1] * matrix.data[1][0]);
+    }
+
+    let mut det = 0.0;
+    for (j, &val) in matrix.data[0].iter().enumerate() {
+        let sub = submatrix(matrix, 0, j);
+        det += val * determinant(&sub) * if j % 2 == 0 { 1.0 } else { -1.0 };
+    }
+
+    det
+}
 
 pub fn transpose(matrix: &Matrix) -> Matrix {
     let (rows, cols) = matrix.size();
@@ -145,4 +147,53 @@ pub fn transpose(matrix: &Matrix) -> Matrix {
         }
     }
     transposed
+}
+
+pub fn submatrix(matrix: &Matrix, row: usize, col: usize) -> Matrix {
+    let submatrix = matrix.data
+        .iter()
+        .enumerate()
+        .filter(|&(r, _)| r != row) // ✅ Remove the selected row
+        .map(|(_, row_data)| {
+            row_data.iter()
+                .enumerate()
+                .filter(|&(c, _)| c != col)
+                .map(|(_, &val)| val)
+                .collect()
+        })
+        .collect();
+
+    Matrix { data: submatrix }
+}
+
+
+pub fn cofactor_matrix(matrix: &Matrix) -> Matrix {
+    let (rows, cols) = matrix.size();
+    let mut cofactors = vec![vec![0.0; cols]; rows];
+
+    for i in 0..rows {
+        for j in 0..cols {
+            cofactors[i][j] = cofactor(matrix, i, j);
+        }
+    }
+
+    Matrix { data: cofactors }
+}
+pub fn inverse(matrix: &Matrix) -> Matrix {
+    let det = determinant(matrix);
+    if det == 0.0 {
+        panic!("Determinat is 0");
+    }
+
+    let adjugate = transpose(&cofactor_matrix(&matrix)); 
+    let inverse_data = adjugate.data
+        .iter()
+        .map(|row| row.iter().map(|&val| val / det).collect())
+        .collect();
+
+    Matrix { data: inverse_data } // ✅ Return the inverse
+}
+
+pub fn is_invertible(matrix: &Matrix)-> bool{
+    return determinant(matrix) != 0.0
 }

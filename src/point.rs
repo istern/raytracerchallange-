@@ -1,4 +1,4 @@
-use std::ops::{Sub,Add};
+use std::ops::{Sub,Add,Mul};
 
 use crate::vector::Vector;
 use crate::tuple::Tuple;
@@ -56,6 +56,18 @@ impl Sub<Vector> for Point {
             x: self.x - other.x,
             y: self.y - other.y,
             z: self.z - other.z,
+        }
+    }
+}
+
+
+impl Mul<f64> for Point {
+    type Output = Self;
+    fn mul(self, other: f64) -> Self  {
+        Self  {
+            x: self.x * other,
+            y: self.y * other,
+            z: self.z * other,
         }
     }
 }

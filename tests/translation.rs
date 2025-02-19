@@ -147,18 +147,6 @@ async fn t_c_b_a(world: &mut TransfomrationWorld) {
    world.t = &c_b * &world.a;
 }
 
-
-#[when(regex = r#"t ← view_transform\(from, to, up\)"#)]
-async fn t_c_b_a(world: &mut TransfomrationWorld) {
-   world.translation = 
-}
-
-
-
-
-
-
-
 #[then(regex = r#"transform \* p = point\((-*\d+), (-*\d+), (-*\d+)\)"#)]
 async fn transform_point_matrix(world: &mut TransfomrationWorld, x: f64, y: f64, z: f64) {
     let expected = Point { x: x, y: y, z: z };

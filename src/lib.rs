@@ -6,6 +6,9 @@ pub mod canvas;
 pub mod projectile;
 pub mod environment;
 pub mod matrix;
+pub mod sphere;
+pub mod intersection;
+pub mod ray;
 
 pub use tuple::*;
 pub use point::*;
@@ -15,4 +18,6 @@ pub use canvas::*;
 pub use projectile::*;
 pub use environment::*;
 pub use matrix::*;
-
+pub use sphere::*;
+pub use intersection::*;
+pub  use ray::*;

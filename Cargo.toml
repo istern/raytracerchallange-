@@ -3,6 +3,9 @@ name = "raytracer"
 version = "0.1.0"
 edition = "2021"
 
+[dependencies]
+rand = "0.8"
+
 [dev-dependencies]
 cucumber = "0.20"
 futures = "0.3"
@@ -21,4 +24,12 @@ harness = false
 
 [[test]]
 name = "translation"
+harness = false
+
+[[test]]
+name = "rays"
+harness = false
+
+[[test]]
+name = "intersections"
 harness = false

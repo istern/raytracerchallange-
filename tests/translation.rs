@@ -148,6 +148,12 @@ async fn t_c_b_a(world: &mut TransfomrationWorld) {
 }
 
 
+#[when(regex = r#"t ← view_transform\(from, to, up\)"#)]
+async fn t_c_b_a(world: &mut TransfomrationWorld) {
+   world.translation = 
+}
+
+
 
 
 

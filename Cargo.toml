@@ -18,3 +18,7 @@ harness = false
 [[test]]
 name = "matrix"
 harness = false
+
+[[test]]
+name = "translation"
+harness = false

@@ -39,6 +39,16 @@ impl Sub for Point {
     }
 }
 
+impl Point {
+    // ✅ Compare with a small tolerance (epsilon)
+    pub fn approx_eq(&self, other: &Self, epsilon: f64) -> bool {
+        (self.x - other.x).abs() < epsilon &&
+        (self.y - other.y).abs() < epsilon &&
+        (self.z - other.z).abs() < epsilon
+    }
+}
+
+
 impl Sub<Vector> for Point {
     type Output = Point;
     fn sub(self, other: Vector) -> Point  {

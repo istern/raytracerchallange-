@@ -22,3 +22,4 @@ pub fn transform(ray: &Ray, matrix: &Matrix) -> Ray {
         direction: matrix * &ray.direction, // ✅ Transform the direction
     }
 }
+

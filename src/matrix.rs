@@ -2,12 +2,11 @@ use std::ops::{Index, IndexMut, Mul};
 
 use crate::{Point, Tuple, Vector};
 
-#[derive(Debug, PartialEq, Default, Clone)]
+#[derive(Debug, PartialEq, Default,Clone)]
 pub struct Matrix {
     pub data: Vec<Vec<f64>>,
     pub scaling: bool,
 }
-
 
 impl Matrix {
     pub fn new(rows: usize, cols: usize) -> Self {
